@@ -71,12 +71,11 @@ class MainActivity : AppCompatActivity(), OnMovieListener {
 
     private fun setupSearchView() {
         searchView = findViewById(R.id.search_view_main)
-        searchView.setOnClickListener {
-            Credentials.POPULAR = false
-            isPopular = false }
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
+                    Credentials.POPULAR = false
+                    isPopular = false
                     searchMovieByName(query, 1)
                     return true
                 }
@@ -114,7 +113,14 @@ class MainActivity : AppCompatActivity(), OnMovieListener {
     }
 
     override fun onMovieClick(position: Int) {
-        val movieModel: MovieModel? = movieListViewModel.getMovies().value?.get(position)
+        var movieModel: MovieModel? = null
+
+        movieModel = if (isPopular) {
+            movieListViewModel.getPopularMovies().value?.get(position)
+        } else {
+            movieListViewModel.getMovies().value?.get(position)
+        }
+
         val intent = Intent(this, MovieDetails::class.java)
         intent.putExtra("movie", movieModel)
         startActivity(intent)
