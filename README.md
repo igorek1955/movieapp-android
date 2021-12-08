@@ -1,11 +1,26 @@
 # MovieApp -android
-connected to TBDB api. Implemented search by name and popularity functionality
+using spoonacular API. 
+
+#Functionality
+- search recipes
+- save recipes
+- have a chuckle at food jokes
 
 # Features
 - retrofit REST
-- JSON parsing using GSON library
+- Dagger-Hilt - DI
+- DataStore - shared preferences
+- Motion Layout
+- Room DB for persistance
+- Lazy load with shimmer effect
+- Night Mode support
+- LiveData 
+- Data Binding
+- View Binding
+- ViewPager2
 
-
+# Setup
+Before usage insert your API key into Constants.kt
 
 # My Other Projects
 
@@ -17,9 +32,3 @@ connected to TBDB api. Implemented search by name and popularity functionality
 | Recipe App build with Spring Boot on MongoDB | [github](https://github.com/igorek1955/recipeapp-spring-mongoDB) | Spring Boot/Mongo |
 | Recipe App build with Spring Boot on MySQL |[github](https://github.com/igorek1955/recipeapp-spring-mysql) | Spring Boot/MySQL |
 | Miscellaneous projects build with Java  | [github](https://github.com/igorek1955/little-projects) | Java Core |
-
-
-# Screenshots
-
-![Alt text](/screenshots/Screenshot_1.jpg "Main screen")
-![Alt text](/screenshots/Screenshot_2.jpg "Movie details screen")
