@@ -1,4 +1,4 @@
-# MovieApp -android
+# Recipes for Android
 using spoonacular API. 
 
 #Functionality
