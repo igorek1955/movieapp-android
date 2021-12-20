@@ -1,5 +1,5 @@
 # MovieApp -android
-connected to TBDB api. Implemented search by name and popularity functionality
+connected to TMDB api. Implemented search by name and popularity functionality
 
 # Features
 - retrofit REST
