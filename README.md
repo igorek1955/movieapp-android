@@ -3,9 +3,7 @@ connected to TMDB api. Implemented search by name and popularity functionality
 
 # Features
 - retrofit REST
-- JSON parsing using GSON library
-
-
+- JSON parsing using gson
 
 # My Other Projects
 
