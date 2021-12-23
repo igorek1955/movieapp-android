@@ -3,15 +3,13 @@ package com.example.movieapp.adapters
 import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.movieapp.R
-import com.example.movieapp.models.MovieModel
+import com.example.movieapp.databinding.MovieListItemBinding
 
-class MovieViewHolder(itemView: View, private val onMovieListener: OnMovieListener) :
-    RecyclerView.ViewHolder(itemView), View.OnClickListener {
-    val imageView: ImageView = itemView.findViewById(R.id.image_view_movie_item)
-    val ratingBar: RatingBar = itemView.findViewById(R.id.rating_bar_movie_item)
+class MovieViewHolder(binding: MovieListItemBinding, private val onMovieListener: OnMovieListener) :
+    RecyclerView.ViewHolder(binding.root), View.OnClickListener {
+    val imageView: ImageView = binding.imageViewMovieItem
+    val ratingBar: RatingBar = binding.ratingBarMovieItem
 
     init {
         itemView.setOnClickListener(this)

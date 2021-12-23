@@ -1,5 +1,5 @@
-# MoviesInfoApp for Android
-search movies usign TBDB api 
+# MovieApp -android
+connected to TMDB api. Implemented search by name and popularity functionality
 
 # Features
 - retrofit REST

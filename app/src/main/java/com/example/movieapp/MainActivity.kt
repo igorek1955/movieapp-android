@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapp.adapters.MovieRecyclerAdapter
 import com.example.movieapp.adapters.OnMovieListener
+import com.example.movieapp.databinding.ActivityMainBinding
 import com.example.movieapp.models.MovieModel
 import com.example.movieapp.utils.Credentials
 
@@ -22,16 +23,15 @@ import com.example.movieapp.view_models.MainActivityViewModel
 class MainActivity : AppCompatActivity(), OnMovieListener {
     //View Model
     lateinit var movieListViewModel: MainActivityViewModel
-
-    lateinit var recyclerView: RecyclerView
+    lateinit var binding: ActivityMainBinding
     lateinit var movieAdapter: MovieRecyclerAdapter
-    lateinit var searchView: SearchView
 
     var isPopular: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         movieListViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
         initToolbar()
         initVars()
@@ -48,14 +48,13 @@ class MainActivity : AppCompatActivity(), OnMovieListener {
         movieListViewModel.getPopularMovies().observe(this, {
             //observing data change
             if (it != null) {
-                movieAdapter.movieList = it
-                movieAdapter.notifyDataSetChanged()
+                movieAdapter.submitList(it)
             }
         })
     }
 
     private fun addRecyclerViewOnScrollListener() {
-        recyclerView.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+        binding.recyclerViewMain.addOnScrollListener(object: RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 if (!recyclerView.canScrollVertically(1)) {
                     movieListViewModel.searchMovieNextPage()
@@ -70,8 +69,7 @@ class MainActivity : AppCompatActivity(), OnMovieListener {
     }
 
     private fun setupSearchView() {
-        searchView = findViewById(R.id.search_view_main)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchViewMain.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     Credentials.POPULAR = false
@@ -91,10 +89,9 @@ class MainActivity : AppCompatActivity(), OnMovieListener {
     private fun initVars() {
         //initializing genre id
         GenreIdService.init()
-        recyclerView = findViewById(R.id.recyclerView_main)
         movieAdapter = MovieRecyclerAdapter(this)
-        recyclerView.adapter = movieAdapter
-        recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewMain.adapter = movieAdapter
+        binding.recyclerViewMain.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun searchMovieByName(query: String, pageNumber: Int) {
@@ -106,8 +103,7 @@ class MainActivity : AppCompatActivity(), OnMovieListener {
         movieListViewModel.getMovies().observe(this, {
             //observing data change
             if (it != null) {
-                movieAdapter.movieList = it
-                movieAdapter.notifyDataSetChanged()
+                movieAdapter.submitList(it)
             }
         })
     }
